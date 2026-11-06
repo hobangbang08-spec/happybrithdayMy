@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật Thảo My 🌸</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        dancing: ['"Dancing Script"', 'cursive'],
+                        quicksand: ['"Quicksand"', 'sans-serif'],
+                        pacifico: ['"Pacifico"', 'cursive'],
+                    },
+                    colors: {
+                        fairy: {
+                            bg: '#fbcfe8',
+                            darkpink: '#be185d',
+                            lightpink: '#fce7f3',
+                            rose: '#fda4af',
+                            gold: '#fbbf24',
+                            deep: '#831843'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 40%, #ec4899 70%, #db2777 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+            color: #831843;
+        }
+
+        /* Glassmorphism card styles in dreamy pink */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 10px 40px 0 rgba(190, 24, 93, 0.25), 
+                        0 0 25px rgba(244, 114, 182, 0.4);
+        }
+
+        /* Floating particles canvas */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Glowing text & button effects */
+        .glow-text {
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 20px rgba(190, 24, 93, 0.3);
+        }
+        
+        .glow-button {
+            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.4), inset 0 0 12px rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+        
+        .glow-button:hover {
+            box-shadow: 0 6px 25px rgba(190, 24, 93, 0.6), inset 0 0 18px rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* CSS Flower Animations for Stage 1 */
+        .flower-container {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto;
+        }
+
+        .petal {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #f472b6, #fb7185, #fff);
+            border-radius: 50% 50% 0 50%;
+            transform-origin: 100% 100%;
+            box-shadow: 0 0 12px rgba(244, 114, 182, 0.6);
+            animation: bloom 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes bloom {
+            0% { transform: scale(0.85) rotate(0deg); opacity: 0.8; }
+            100% { transform: scale(1.1) rotate(6deg); opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)); }
+        }
+
+        .petal:nth-child(1) { transform: rotate(0deg) translate(-22px, -22px); }
+        .petal:nth-child(2) { transform: rotate(72deg) translate(-22px, -22px); }
+        .petal:nth-child(3) { transform: rotate(144deg) translate(-22px, -22px); }
+        .petal:nth-child(4) { transform: rotate(216deg) translate(-22px, -22px); }
+        .petal:nth-child(5) { transform: rotate(288deg) translate(-22px, -22px); }
+
+        .flower-center {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #fde047 0%, #fbbf24 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 18px #fde047;
+            z-index: 2;
+        }
+
+        /* Birthday Cake Styling */
+        .cake-container {
+            position: relative;
+            width: 240px;
+            height: 200px;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+
+        .cake-base {
+            position: absolute;
+            bottom: 0;
+            width: 240px;
+            height: 70px;
+            background: linear-gradient(to right, #9d174d, #db2777, #9d174d);
+            border-radius: 15px 15px 10px 10px;
+            box-shadow: 0 10px 25px rgba(131, 24, 67, 0.4);
+        }
+
+        .cake-middle {
+            position: absolute;
+            bottom: 60px;
+            left: 20px;
+            width: 200px;
+            height: 60px;
+            background: linear-gradient(to right, #f472b6, #fb7185, #f472b6);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .cake-top {
+            position: absolute;
+            bottom: 115px;
+            left: 40px;
+            width: 160px;
+            height: 50px;
+            background: linear-gradient(to right, #fff, #fbcfe8, #fff);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .icing {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 15px;
+            background: #fff;
+            border-radius: 10px 10px 15px 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Candle & Flame */
+        .candle {
+            position: absolute;
+            bottom: 165px;
+            left: 110px;
+            width: 20px;
+            height: 45px;
+            background: repeating-linear-gradient(45deg, #fbbf24, #fbbf24 8px, #fff 8px, #fff 16px);
+            border-radius: 4px;
+            z-index: 10;
+        }
+
+        .flame {
+            position: absolute;
+            top: -24px;
+            left: 3px;
+            width: 14px;
+            height: 24px;
+            background: linear-gradient(to top, #ff4500, #ffaa00, #ffff00);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 15px #ffaa00, 0 0 30px #ff4500;
+            animation: flicker 0.6s infinite alternate;
+            transform-origin: center bottom;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+            100% { transform: scale(1.15) rotate(3deg); opacity: 1; filter: drop-shadow(0 0 12px #ffdd00); }
+        }
+
+        .smoke {
+            position: absolute;
+            top: -30px;
+            left: 2px;
+            width: 16px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .smoke.active {
+            animation: smokeRise 2s forwards;
+        }
+
+        @keyframes smokeRise {
+            0% { opacity: 0.9; transform: translateY(0) scale(0.5); }
+            100% { opacity: 0; transform: translateY(-40px) scale(2.5); }
+        }
+
+        /* Magical Scroll Card for Stage 3 */
+        .scroll-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(253, 242, 248, 0.95) 100%);
+            border: 4px solid #f472b6;
+            box-shadow: 0 0 35px rgba(236, 72, 153, 0.3), inset 0 0 20px rgba(251, 207, 232, 0.5);
+            color: #831843;
+        }
+
+        .fade-step {
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
+
+        /* Music note floating animation */
+        .music-note {
+            position: absolute;
+            color: #db2777;
+            font-size: 1.2rem;
+            animation: floatNote 3s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatNote {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-50px) rotate(20deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4 relative" onclick="enableAudioOnUserInteraction()">
+
+    <!-- Background Canvas for Fairy Sparkles & Floating Hearts -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Floating Music Toggle Controller -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <button id="musicToggle" onclick="toggleMusic(event)" 
+                class="w-12 h-12 rounded-full bg-white/80 border-2 border-pink-400 text-pink-600 flex items-center justify-center shadow-lg hover:bg-pink-100 transition glow-button">
+            <i id="musicIcon" class="fa-solid fa-music text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Hidden audio element for HIEUTHUHAI - Sinh nhật -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-444.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Main Container -->
+    <main class="relative z-10 w-full max-w-xl mx-auto my-6">
+
+        <!-- STAGE 1: Welcome & Password Protection -->
+        <section id="stage1" class="fade-step glass-card rounded-3xl p-6 sm:p-8 text-center">
+            <!-- Blooming Fairy Flower Animation -->
+            <div class="flower-container my-4">
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="flower-center flex items-center justify-center text-amber-900 text-xs font-bold">
+                    <i class="fa-solid fa-sparkles text-lg text-amber-700"></i>
+                </div>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl font-dancing font-bold text-pink-900 glow-text mb-3">
+                Thế Giới Cổ Tích Của Thảo My 👑
+            </h1>
+            <p class="text-pink-950 font-medium text-sm sm:text-base mb-6 leading-relaxed">
+                Chào mừng My đến với góc nhỏ thần tiên! Hãy nhập mật mã đặc biệt để mở ra hộp quà bí mật nhé ✨
+            </p>
+
+            <!-- Password Form -->
+            <div id="passwordBox" class="max-w-xs mx-auto space-y-4">
+                <div class="relative">
+                    <input type="password" id="passInput" placeholder="Nhập mật khẩu bí mật..." 
+                           class="w-full px-5 py-3 rounded-full bg-white/80 border-2 border-pink-400 text-pink-950 font-bold placeholder-pink-400 text-center focus:outline-none focus:border-pink-600 focus:ring-2 focus:ring-pink-300 transition">
+                    <div id="errorMsg" class="hidden text-rose-600 text-xs mt-2 font-bold">
+                        <i class="fa-solid fa-circle-exclamation mr-1"></i> Mật khẩu chưa đúng rồi nè! (Gợi ý: 0711)
+                    </div>
+                </div>
+
+                <button onclick="checkPassword()" 
+                        class="w-full py-3 px-6 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-amber-400 text-white font-bold text-lg glow-button flex items-center justify-center gap-2">
+                    <span>Mở Cửa Phép Thuật</span>
+                    <i class="fa-solid fa-key"></i>
+                </button>
+            </div>
+
+            <div class="mt-6 text-xs text-pink-800 font-semibold italic">
+                🌸 Mật khẩu gợi ý: <span class="font-bold underline text-pink-900">0711</span>
+            </div>
+        </section>
+
+
+        <!-- STAGE 2: Birthday Cake & Candle Blowing (Hidden by default) -->
+        <section id="stage2" class="fade-step hidden glass-card rounded-3xl p-6 sm:p-8 text-center">
+            <h2 class="text-3xl sm:text-4xl font-dancing font-bold text-pink-900 glow-text mb-2">
+                Chiếc Bánh Ước Nguyện 🎂
+            </h2>
+            <p class="text-pink-950 text-sm mb-4 font-medium">
+                Hãy nhắm mắt lại ước một điều thật tuyệt vời và bấm thổi tắt nến nhé My ơi!
+            </p>
+
+            <!-- Interactive Cake Component -->
+            <div class="cake-container" onclick="blowCandleManual()">
+                <div class="cake-base">
+                    <div class="icing"></div>
+                </div>
+                <div class="cake-middle">
+                    <div class="icing"></div>
+                </div>
+                <div class="cake-top">
+                    <div class="icing"></div>
+                </div>
+                <!-- Candle -->
+                <div class="candle" id="candle">
+                    <div class="flame" id="flame"></div>
+                    <div class="smoke" id="smoke"></div>
+                </div>
+            </div>
+
+            <!-- Candle Status Info -->
+            <div id="candleStatus" class="text-pink-900 font-semibold text-sm mb-6 h-6">
+                ✨ Nhấn vào nến hoặc nút "Thổi Nến" bên dưới nha!
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                <button id="blowBtn" onclick="blowCandleManual()" 
+                        class="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold glow-button flex items-center gap-2">
+                    <i class="fa-solid fa-wind"></i>
+                    <span>Thổi Nến ✨</span>
+                </button>
+
+                <button id="nextToWishBtn" onclick="goToStage3()" disabled
+                        class="px-6 py-3 rounded-full bg-gray-300 text-gray-500 font-bold opacity-60 cursor-not-allowed transition duration-300 flex items-center gap-2">
+                    <span>Mở Lời Chúc 💌</span>
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- STAGE 3: Birthday Wishes & Photo Collage (Hidden by default) -->
+        <section id="stage3" class="fade-step hidden relative">
+            <div class="scroll-card rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden">
+                
+                <!-- Decorative Corner Magic -->
+                <div class="absolute top-3 left-3 text-pink-400 text-2xl"><i class="fa-solid fa-heart"></i></div>
+                <div class="absolute top-3 right-3 text-pink-400 text-2xl"><i class="fa-solid fa-heart"></i></div>
+
+                <div class="mb-4">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-pink-100 text-pink-800 text-xs font-bold tracking-wider uppercase border border-pink-300 shadow-sm">
+                        🌸 Thư Chúc Mừng Sinh Nhật 18 Tuổi 🌸
+                    </span>
+                </div>
+
+                <h2 class="text-4xl sm:text-5xl font-dancing font-bold text-pink-900 mb-6 glow-text">
+                    Happy Birthday Thảo My!
+                </h2>
+
+                <!-- User Photo Collage -->
+                <div class="mb-6 rounded-2xl overflow-hidden border-4 border-pink-300 shadow-xl max-w-md mx-auto bg-white p-2 transform hover:scale-[1.01] transition duration-300">
+                    <img src="1793849429822_2127704428975269434_4679592791303818572_661f6dcc6ee8fac660609a6cefeac756.jpg" 
+                         alt="Kỷ niệm Thảo My" 
+                         class="w-full h-auto rounded-xl object-cover"
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x900/fbcfe8/831843?text=Th%E1%BA%A3o+My+Love';">
+                </div>
+
+                <!-- Custom Wish Text -->
+                <div class="space-y-4 text-pink-950 font-quicksand text-base sm:text-lg leading-relaxed text-left sm:text-justify bg-white/60 p-5 sm:p-6 rounded-2xl border border-pink-200 shadow-inner">
+                    <p>
+                        Năm nay, tui hong được đón sinh nhật của bà chung với bà vì chúng ta phải học xa nhau òii
+                    </p>
+                    <p>
+                        Nhưng mà điều đó cũn hong ngăn cản được tình cảm tui dành cho bà hahahahaha
+                    </p>
+                    <p>
+                        Cảm ơn bà rất nhìu vì đã luôn hiểu, luôn trò chuyện với tui khi tui cần, bà luôn ở bên tui để tui biết được có một người bạn thân thật sự là như thế nào
+                    </p>
+                    <p>
+                        Chúc My, ngày ngày vui vẻ, luôn luôn hạnh phúc nha. Chỉ khi bà vui vẻ và hạnh phúc tui mới vui được, tui hong muốn bà có những cảm xúc buồn trong cuộc sống đâuuu. Chúc bà sinh nhật này, xinh đẹp hơn mỗi ngày, cười nhiều hơn mỗi ngày luôn, thật bình an nhé, thành công trên con đường tương lai, trở thành một người giáo viên được nhìu người iu quí.
+                    </p>
+                    <p>
+                        Mong rằng nhiều điều tốt đẹp sẽ đến với cô gái vừa tròn 18 tuổi của toiiii.
+                    </p>
+                    <p class="font-dancing text-3xl text-pink-700 font-bold text-center pt-2">
+                        Yêu lắm áaaa ❤️
+                    </p>
+                </div>
+
+                <!-- Footer Buttons -->
+                <div class="mt-8 pt-4 border-t border-pink-200 flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="triggerMagicSparkles()" class="px-5 py-2.5 rounded-full bg-pink-500 text-white font-semibold hover:bg-pink-600 transition flex items-center justify-center gap-2 text-sm shadow-md glow-button">
+                        <i class="fa-solid fa-sparkles"></i>
+                        <span>Thêm Pháo Hoa Thần Tiên</span>
+                    </button>
+                    <button onclick="restartJourney()" class="px-5 py-2.5 rounded-full bg-rose-400 text-white font-semibold hover:bg-rose-500 transition flex items-center justify-center gap-2 text-sm shadow-md">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span>Xem Lại Từ Đầu</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Audio & Interactive Script -->
+    <script>
+        /* -------------------------------------------------------------
+           1. Dreamy Pink Floating Canvas (Hearts & Sparkles)
+        ------------------------------------------------------------- */
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class FairyParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 4 + 2;
+                this.speedX = (Math.random() - 0.5) * 0.6;
+                this.speedY = (Math.random() - 0.5) * 0.8 - 0.3;
+                this.color = ['#ffffff', '#fbcfe8', '#f472b6', '#fda4af', '#fbbf24'][Math.floor(Math.random() * 5)];
+                this.alpha = Math.random() * 0.7 + 0.3;
+                this.pulse = Math.random() * 0.02 + 0.005;
+                this.isHeart = Math.random() > 0.6;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha += Math.sin(Date.now() * this.pulse) * 0.01;
+
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, Math.min(1, this.alpha));
+                
+                if (this.isHeart) {
+                    // Draw mini heart
+                    ctx.fillStyle = this.color;
+                    ctx.font = `${this.size * 3}px sans-serif`;
+                    ctx.fillText('💗', this.x, this.y);
+                } else {
+                    // Draw glowing star particle
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.shadowBlur = 12;
+                    ctx.shadowColor = '#f472b6';
+                    ctx.fill();
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) {
+            particles.push(new FairyParticle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+
+        /* -------------------------------------------------------------
+           2. Audio Control (Auto-play on user interaction & Music Toggle)
+        ------------------------------------------------------------- */
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+        let isMusicPlaying = false;
+
+        function enableAudioOnUserInteraction() {
+            if (!isMusicPlaying) {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicIcon.classList.remove('fa-music');
+                    musicIcon.classList.add('fa-compact-disc', 'fa-spin');
+                }).catch(() => {
+                    // Auto-play prevented until direct interaction
+                });
+            }
+        }
+
+        function toggleMusic(e) {
+            e.stopPropagation();
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                isMusicPlaying = false;
+                musicIcon.classList.remove('fa-compact-disc', 'fa-spin');
+                musicIcon.classList.add('fa-music');
+            } else {
+                bgMusic.play();
+                isMusicPlaying = true;
+                musicIcon.classList.remove('fa-music');
+                musicIcon.classList.add('fa-compact-disc', 'fa-spin');
+            }
+        }
+
+        /* Synthesized Chime Sounds for Extra Polish */
+        let audioCtx = null;
+        function playChimeSound() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, index) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime + index * 0.08);
+                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime + index * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + index * 0.08 + 0.35);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(audioCtx.currentTime + index * 0.08);
+                    osc.stop(audioCtx.currentTime + index * 0.08 + 0.35);
+                });
+            } catch (e) {}
+        }
+
+
+        /* -------------------------------------------------------------
+           3. Stage 1 Logic: Password ("0711")
+        ------------------------------------------------------------- */
+        function checkPassword() {
+            enableAudioOnUserInteraction();
+            const input = document.getElementById('passInput').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+            const passwordBox = document.getElementById('passwordBox');
+
+            if (input === '0711') {
+                errorMsg.classList.add('hidden');
+                playChimeSound();
+                
+                confetti({
+                    particleCount: 60,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#f472b6', '#fda4af', '#ffffff', '#fbbf24']
+                });
+
+                document.getElementById('stage1').classList.add('opacity-0');
+                setTimeout(() => {
+                    document.getElementById('stage1').classList.add('hidden');
+                    const s2 = document.getElementById('stage2');
+                    s2.classList.remove('hidden');
+                    s2.classList.add('opacity-100');
+                }, 500);
+            } else {
+                errorMsg.classList.remove('hidden');
+                passwordBox.classList.remove('shake');
+                void passwordBox.offsetWidth;
+                passwordBox.classList.add('shake');
+            }
+        }
+
+        document.getElementById('passInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+
+        /* -------------------------------------------------------------
+           4. Stage 2 Logic: Candle Blowing
+        ------------------------------------------------------------- */
+        let candleIsBlown = false;
+
+        function blowCandleManual() {
+            enableAudioOnUserInteraction();
+            if (candleIsBlown) return;
+            candleIsBlown = true;
+
+            const flame = document.getElementById('flame');
+            const smoke = document.getElementById('smoke');
+            const candleStatus = document.getElementById('candleStatus');
+            const blowBtn = document.getElementById('blowBtn');
+            const nextBtn = document.getElementById('nextToWishBtn');
+
+            flame.style.display = 'none';
+            smoke.classList.add('active');
+            
+            playChimeSound();
+
+            candleStatus.innerHTML = '🎉 Thổi nến thành công! Mọi ước nguyện của My sẽ thành hiện thực!';
+            candleStatus.classList.add('text-pink-700', 'font-bold');
+
+            blowBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            blowBtn.setAttribute('disabled', 'true');
+
+            nextBtn.removeAttribute('disabled');
+            nextBtn.classList.remove('bg-gray-300', 'text-gray-500', 'opacity-60', 'cursor-not-allowed');
+            nextBtn.classList.add('bg-gradient-to-r', 'from-pink-500', 'to-rose-500', 'text-white', 'glow-button');
+
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.55 },
+                colors: ['#f472b6', '#fbbf24', '#be185d', '#ffffff']
+            });
+        }
+
+
+        /* -------------------------------------------------------------
+           5. Stage 3 Logic: Show Wish & Photo
+        ------------------------------------------------------------- */
+        function goToStage3() {
+            if (!candleIsBlown) return;
+
+            playChimeSound();
+            document.getElementById('stage2').classList.add('opacity-0');
+            setTimeout(() => {
+                document.getElementById('stage2').classList.add('hidden');
+                const s3 = document.getElementById('stage3');
+                s3.classList.remove('hidden');
+                s3.classList.add('opacity-100');
+                
+                triggerMagicSparkles();
+            }, 500);
+        }
+
+        function triggerMagicSparkles() {
+            playChimeSound();
+            const duration = 2.5 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 25, spread: 360, ticks: 60, zIndex: 20 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+                const particleCount = 40 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.2, 0.8), y: randomInRange(0.2, 0.6) } 
+                }));
+            }, 250);
+        }
+
+        function restartJourney() {
+            candleIsBlown = false;
+
+            document.getElementById('flame').style.display = 'block';
+            document.getElementById('smoke').classList.remove('active');
+            document.getElementById('candleStatus').innerHTML = '✨ Nhấn vào nến hoặc nút "Thổi Nến" bên dưới nha!';
+            document.getElementById('passInput').value = '';
+
+            const blowBtn = document.getElementById('blowBtn');
+            blowBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            blowBtn.removeAttribute('disabled');
+
+            const nextBtn = document.getElementById('nextToWishBtn');
+            nextBtn.setAttribute('disabled', 'true');
+            nextBtn.className = 'px-6 py-3 rounded-full bg-gray-300 text-gray-500 font-bold opacity-60 cursor-not-allowed transition duration-300 flex items-center gap-2';
+
+            document.getElementById('stage3').classList.add('hidden');
+            document.getElementById('stage2').classList.add('hidden');
+            
+            const s1 = document.getElementById('stage1');
+            s1.classList.remove('hidden', 'opacity-0');
+        }
+    </script>
+</body>
+</html>
